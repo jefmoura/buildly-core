@@ -19,6 +19,7 @@ router.register(r'workflowlevel2sort', views.WorkflowLevel2SortViewSet)
 router.register(r'workflowleveltype', views.WorkflowLevelTypeViewSet)
 router.register(r'workflowlevelstatus', views.WorkflowLevelStatusViewSet)
 router.register(r'workflowteam', views.WorkflowTeamViewSet)
+router.register(r'webhook', views.HookViewSet)
 
 urlpatterns = [
     path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),

@@ -15,4 +15,5 @@ API_GATEWAY_RESERVED_NAMES = [
     'user',
     'organization',
     'datamesh',
+    'webhook'
 ]

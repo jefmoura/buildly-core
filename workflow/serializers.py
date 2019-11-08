@@ -12,12 +12,27 @@ from django.template import Template, Context
 
 from oauth2_provider.models import AccessToken, Application, RefreshToken
 
-from rest_framework import serializers
+from rest_framework import exceptions, serializers
 from workflow import models as wfm
 from workflow.email_utils import send_email, send_email_body
 from workflow.models import Organization
 
+from rest_hooks.models import Hook
+
 User = get_user_model()
+
+
+class HookSerializer(serializers.ModelSerializer):
+    def validate_event(self, event):
+        if event not in settings.HOOK_EVENTS:
+            err_msg = "Unexpected event {}".format(event)
+            raise exceptions.ValidationError(detail=err_msg, code=400)
+        return event
+
+    class Meta:
+        model = Hook
+        fields = '__all__'
+        read_only_fields = ('user',)
 
 
 class PermissionsField(serializers.DictField):

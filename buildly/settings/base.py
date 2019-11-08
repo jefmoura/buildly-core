@@ -55,6 +55,9 @@ INSTALLED_APPS_THIRD_PARTIES = [
     # swagger
     'drf_yasg',
 
+    # webhook
+    'rest_hooks',
+
     # health check
     'health_check',                             # required
     'health_check.db',                          # stock Django health checkers
@@ -340,4 +343,39 @@ DEFAULT_REPLYTO_EMAIL = os.getenv('DEFAULT_REPLYTO_EMAIL')
 
 SWAGGER_SETTINGS = {
     'DEFAULT_INFO': 'gateway.urls.swagger_info',
+}
+
+# Webhook configuration
+HOOK_FINDER = 'webhook.utils.find_and_fire_hook'
+HOOK_EVENTS = {
+    # Organization
+    'organization.added': 'workflow.Organization.created',
+    'organization.changed': 'workflow.Organization.updated+',
+    'organization.removed': 'workflow.Organization.deleted',
+
+    # Core Group
+    'coregroup.added': 'workflow.CoreGroup.created',
+    'coregroup.changed': 'workflow.CoreGroup.updated+',
+    'coregroup.removed': 'workflow.CoreGroup.deleted',
+
+    # Core User
+    'coreuser.added': 'workflow.CoreUser.created',
+    'coreuser.changed': 'workflow.CoreUser.updated+',
+    'coreuser.removed': 'workflow.CoreUser.deleted',
+
+    # Workflow Team
+    'workflowteam.added': 'workflow.WorkflowTeam.created',
+    'workflowteam.changed': 'workflow.WorkflowTeam.updated+',
+    'workflowteam.removed': 'workflow.WorkflowTeam.deleted',
+
+    # Workflow Level 1
+    'workflowlevel1.added': 'workflow.WorkflowLevel1.created',
+    'workflowlevel1.changed': 'workflow.WorkflowLevel1.updated+',
+    'workflowlevel1.removed': 'workflow.WorkflowLevel1.deleted',
+
+    # Workflow Level 2
+    'workflowlevel2.added': 'workflow.WorkflowLevel2.created',
+    'workflowlevel2.changed': 'workflow.WorkflowLevel2.updated+',
+    'workflowlevel2.removed': 'workflow.WorkflowLevel2.deleted',
+    'workflowlevel2.status': 'workflow.WorkflowLevel2.status_changed',
 }

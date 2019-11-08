@@ -9,7 +9,9 @@ from django.views.generic.base import TemplateView
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 
-from oauth2_provider.views.generic import ProtectedResourceView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+
 from social_core.exceptions import AuthFailed
 from social_core.utils import (partial_pipeline_data, setting_url,
                                user_is_active, user_is_authenticated)
@@ -37,7 +39,9 @@ class IndexView(TemplateView):
         return context
 
 
-class OAuthUserEndpoint(ProtectedResourceView):
+class OAuthUserEndpoint(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, *args, **kwargs):
         user = request.user
         body = {

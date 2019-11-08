@@ -20,3 +20,5 @@ drf-yasg==1.10.2
 requests==2.21.0
 aiohttp==3.5.4
 factory_boy==2.12.0
+django-rest-hooks==1.5.0
+gevent==1.4.0
